@@ -7,15 +7,5 @@
         <parm name="ProfileName" value="OEMService" />
         <parm name="ModifiedDate" value="2022-08-17 10:20:36" />
         <parm name="TargetSystemVersion" value="10.4" />
-
-        <characteristic type="AccessMgr" version="10.4">
-            <parm name="emdk_name" value="" />
-            <parm name="ServiceAccessAction" value="4" />
-            <parm name="ServiceIdentifier"
-                value="content://oem_info/oem.zebra.secure/build_serial" />
-            <parm name="CallerPackageName" value="com.zebra.nilac.oeminfo_test" />
-            <parm name="CallerSignature"
-                value="MIIC5DCCAcwCAQEwDQYJKoZIhvcNAQEFBQAwNzEWMBQGA1UEAwwNQW5kcm9pZCBEZWJ1ZzEQMA4GA1UECgwHQW5kcm9pZDELMAkGA1UEBhMCVVMwIBcNMjIwNTEyMDg1NDA1WhgPMjA1MjA1MDQwODU0MDVaMDcxFjAUBgNVBAMMDUFuZHJvaWQgRGVidWcxEDAOBgNVBAoMB0FuZHJvaWQxCzAJBgNVBAYTAlVTMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqFON7xnLjUCBau4ZKgVlgN0jdP9JfcKE8nev7F5eD/OeLZOR/GCVzJrj29MohR2eonVDWM+kCdBkth8WbsMgc9oLIkdhq1OeOH2JjQRV38X4MQfR/ldz/NoVLPj9oyCNEBEvzCe1z9siHKNWpSqcZj6aimqpyHkBH+2mD9PKyt4a6520J+61E1MOJiS39Ch8pNxJsJ5c9/w1Hb2sURYLe33TPOZfhjcqh5BhNn+qVBoUvabcKuVxh+m0+ltaM1nHbFpKMa+foQVsbQB8wmLiB7F+yE2R0d4UmBqErAM/tQOKp0ZLu3L1jySbRLS1Sf+IbT8ymnirwcvMXC/KzQ/lFQIDAQABMA0GCSqGSIb3DQEBBQUAA4IBAQCF+JRAC8kPuAJxIxVOxCLwcXS5FvwNwbgEvh8hEbAJwYYelN6weq9EmZurfSzGmxPkhSiqp6F9biTcHHUOKGR9Yty1uZkoRl1/+VLVzGrvPfdFwGoXXoSBPrx3Lj36RysZw0kwwJMD+5ovTzemsiVjm92YrAxFXO8XhXRVHGmncLRNi36Mzm6VdtnhkIKlALFLYvxHEQpghOw2K1Po5XJqFw5twQsv+snoFrjv+8f8MltoqEuVnUhP/NRAF1kUbt1IhgPzx0m5HXAHfl5S06p97UbIFtmvBNSFQyMMwoTXUvWcIuHPImcCDdFcB1g4j//TlznE8vgkpiCrQV/q2zb8" />
-        </characteristic>
     </characteristic>
 </wap-provisioningdoc>
