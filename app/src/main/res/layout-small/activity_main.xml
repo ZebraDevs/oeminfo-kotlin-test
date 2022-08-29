@@ -19,6 +19,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:text="Serial Number:"
             android:textSize="13sp" />
@@ -45,6 +46,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:text="MAC Address:"
             android:textSize="13sp" />
@@ -69,19 +71,20 @@
         app:layout_constraintTop_toBottomOf="@+id/mac_address_container">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
             android:text="IMEI:"
             android:textSize="13sp" />
 
         <TextView
             android:id="@+id/imei_code"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:textSize="13sp"
             android:textStyle="bold"
-            tools:text="18181A888" />
+            tools:text="@string/imei_not_supported" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OEMInfo Test</string>
+    <string name="imei_not_supported">IMEI is not retrievable on this device</string>
 </resources>

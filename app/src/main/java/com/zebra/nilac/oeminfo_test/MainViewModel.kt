@@ -1,9 +1,12 @@
 package com.zebra.nilac.oeminfo_test
 
+import android.content.Context
+import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.symbol.emdk.EMDKResults
 import com.zebra.nilac.emdkloader.ProfileLoader
 import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
 import kotlinx.coroutines.launch
@@ -17,12 +20,6 @@ class MainViewModel : ViewModel() {
         val identifiers: ArrayList<Identifier> = arrayListOf<Identifier>().apply {
             add(
                 Identifier(
-                    AppConstants.URI_IMEI,
-                    AppConstants.CP_IMEI_COLUMN_NAME
-                )
-            )
-            add(
-                Identifier(
                     AppConstants.URI_SERIAL,
                     AppConstants.CP_SERIAL_COLUMN_NAME
                 )
@@ -31,6 +28,12 @@ class MainViewModel : ViewModel() {
                 Identifier(
                     AppConstants.URI_BT_MAC,
                     AppConstants.CP_MAC_COLUMN_NAME
+                )
+            )
+            add(
+                Identifier(
+                    AppConstants.URI_IMEI,
+                    AppConstants.CP_IMEI_COLUMN_NAME
                 )
             )
         }
@@ -44,6 +47,15 @@ class MainViewModel : ViewModel() {
                             override fun onProcessed(isProcessed: Boolean) {
                                 if (isProcessed) {
                                     profilesProcessed.postValue(identifiers[1])
+
+                                    //Skip if the device doesn't have any inserted SIMs
+                                    if (!Utils.isSIMInserted()) {
+                                        profilesProcessed.postValue(identifiers[2].apply {
+                                            supported = false
+                                        })
+                                        return
+                                    }
+
                                     processProfile(identifiers[2], object : ProcessProfileResult {
                                         override fun onProcessed(isProcessed: Boolean) {
                                             if (isProcessed) {
@@ -94,6 +106,10 @@ class MainViewModel : ViewModel() {
             "OEMService",
             profile,
             object : ProfileLoaderResultCallback {
+                override fun onProfileLoadFailed(errorObject: EMDKResults) {
+                    //Nothing to see here..
+                }
+
                 override fun onProfileLoadFailed(message: String) {
                     Log.e(TAG, "Failed to process profile with identifier: ${identifier.uri}")
                     processProfileResult.onProcessed(false)

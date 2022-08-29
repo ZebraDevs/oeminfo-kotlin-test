@@ -72,19 +72,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun fillUI(identifier: Identifier, value: String) {
         when (identifier.uri) {
-            AppConstants.URI_IMEI -> {
-                mBinder.imeiCode.text = value
-            }
             AppConstants.URI_SERIAL -> {
                 mBinder.serialNumber.text = value
             }
             AppConstants.URI_BT_MAC -> {
                 mBinder.macAddress.text = value
             }
+            AppConstants.URI_IMEI -> {
+                mBinder.imeiCode.text = value
+            }
         }
     }
 
     private val processProfileObserver = Observer<Identifier> {
+        if (!it.supported && it.uri == AppConstants.URI_IMEI) {
+            mBinder.imeiCode.text = getString(R.string.imei_not_supported)
+            return@Observer
+        }
         Log.i(TAG, "Profile with Identifier: ${it.uri} was successfully processed")
         retrieveOEMInfo(it)
     }

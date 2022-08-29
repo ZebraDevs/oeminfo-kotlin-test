@@ -51,7 +51,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
     // EMDK Loader
-    implementation 'com.github.nilac8991:emdk-loader-lib:1.0.2'
+    implementation 'com.github.nilac8991:emdk-loader-lib:1.0.3'
 
     // EMDK
     implementation 'com.symbol:emdk:9.1.1'
