@@ -6,8 +6,10 @@
         <entry key="app/src/main/res/layout-hdpi/activity_main.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout-mdpi/activity_main.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout-small/activity_main.xml" value="0.6991220004316689" />
+        <entry key="app/src/main/res/layout-small/info_container.xml" value="0.4762396694214876" />
         <entry key="app/src/main/res/layout-w2dp-h2dp-small/activity_main.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3591485507246377" />
+        <entry key="app/src/main/res/layout/info_container.xml" value="0.20878623188405798" />
       </map>
     </option>
   </component>

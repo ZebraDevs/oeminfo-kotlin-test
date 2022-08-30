@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         mBinder = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinder.root)
 
+        setSupportActionBar(mBinder.toolbar)
+
         mainViewModel.profilesProcessed.observe(this, processProfileObserver)
 
         initEMDKManager()
@@ -73,20 +75,20 @@ class MainActivity : AppCompatActivity() {
     private fun fillUI(identifier: Identifier, value: String) {
         when (identifier.uri) {
             AppConstants.URI_SERIAL -> {
-                mBinder.serialNumber.text = value
+                mBinder.infoContainer.serialNumber.text = value
             }
             AppConstants.URI_BT_MAC -> {
-                mBinder.macAddress.text = value
+                mBinder.infoContainer.macAddress.text = value
             }
             AppConstants.URI_IMEI -> {
-                mBinder.imeiCode.text = value
+                mBinder.infoContainer.imeiCode.text = value
             }
         }
     }
 
     private val processProfileObserver = Observer<Identifier> {
         if (!it.supported && it.uri == AppConstants.URI_IMEI) {
-            mBinder.imeiCode.text = getString(R.string.imei_not_supported)
+            mBinder.infoContainer.imeiCode.text = getString(R.string.imei_not_supported)
             return@Observer
         }
         Log.i(TAG, "Profile with Identifier: ${it.uri} was successfully processed")

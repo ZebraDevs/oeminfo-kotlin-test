@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">OEMInfo Test</string>
+
+    <string name="imei_generic_title">IMEI:</string>
+    <string name="sn_generic_title">Serial Number:</string>
+    <string name="bt_mac_generic_title">BT MAC:</string>
     <string name="imei_not_supported">IMEI is not retrievable on this device</string>
+
 </resources>
