@@ -49,12 +49,12 @@ class MainViewModel : ViewModel() {
                                     profilesProcessed.postValue(identifiers[1])
 
                                     //Skip if the device doesn't have any inserted SIMs
-                                    if (!Utils.isSIMInserted()) {
-                                        profilesProcessed.postValue(identifiers[2].apply {
-                                            supported = false
-                                        })
-                                        return
-                                    }
+//                                    if (!Utils.isSIMInserted()) {
+//                                        profilesProcessed.postValue(identifiers[2].apply {
+//                                            supported = false
+//                                        })
+//                                        return
+//                                    }
 
                                     processProfile(identifiers[2], object : ProcessProfileResult {
                                         override fun onProcessed(isProcessed: Boolean) {
