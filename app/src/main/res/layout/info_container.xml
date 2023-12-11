@@ -81,4 +81,29 @@
             tools:text="18181A888" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/wifi_mac_address_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imei_container">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wifi_mac_generic_title"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/wifi_mac_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="18181A888" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     package="com.zebra.nilac.oeminfo_test">
 
     <uses-permission android:name="com.zebra.provider.READ" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!--  Required for Content provider restrictions introduced in Android 11 -->
     <queries>

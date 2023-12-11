@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity() {
             AppConstants.URI_IMEI -> {
                 mBinder.infoContainer.imeiCode.text = value
             }
+            AppConstants.URI_WIFI_MAC -> {
+                mBinder.infoContainer.wifiMacAddress.text = value
+            }
         }
     }
 

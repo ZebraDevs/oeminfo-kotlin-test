@@ -32,6 +32,12 @@ class MainViewModel : ViewModel() {
             )
             add(
                 Identifier(
+                    AppConstants.URI_WIFI_MAC,
+                    AppConstants.CP_WIFI_COLUMN_NAME
+                )
+            )
+            add(
+                Identifier(
                     AppConstants.URI_IMEI,
                     AppConstants.CP_IMEI_COLUMN_NAME
                 )
@@ -60,6 +66,11 @@ class MainViewModel : ViewModel() {
                                         override fun onProcessed(isProcessed: Boolean) {
                                             if (isProcessed) {
                                                 profilesProcessed.postValue(identifiers[2])
+                                                processProfile(identifiers[3], object : ProcessProfileResult {
+                                                    override fun onProcessed(isProcessed: Boolean) {
+                                                        profilesProcessed.postValue(identifiers[3])
+                                                    }
+                                                })
                                             }
                                         }
                                     })
