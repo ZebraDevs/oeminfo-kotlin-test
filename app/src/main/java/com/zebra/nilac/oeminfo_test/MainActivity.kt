@@ -14,6 +14,11 @@ import com.zebra.nilac.emdkloader.ProfileLoader
 import com.zebra.nilac.emdkloader.interfaces.EMDKManagerInitCallBack
 import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
 import com.zebra.nilac.oeminfo_test.databinding.ActivityMainBinding
+import androidx.core.net.toUri
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +32,20 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(mBinder.toolbar)
 
-        mainViewModel.profilesProcessed.observe(this, processProfileObserver)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.profilesProcessed.collect { id ->
+                    if (!id.supported && id.uri == AppConstants.URI_IMEI) {
+                        mBinder.infoContainer.imeiCode.text =
+                            getString(R.string.imei_not_supported)
+                        return@collect
+                    }
+
+                    Log.i(TAG, "Profile with Identifier: ${id.uri} was successfully processed")
+                    retrieveOEMInfo(id)
+                }
+            }
+        }
 
         initEMDKManager()
     }
@@ -51,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun retrieveOEMInfo(identifier: Identifier) {
         contentResolver.query(
-            Uri.parse(identifier.uri),
+            identifier.uri.toUri(),
             arrayOf(
                 identifier.column
             ),
@@ -77,25 +95,19 @@ class MainActivity : AppCompatActivity() {
             AppConstants.URI_SERIAL -> {
                 mBinder.infoContainer.serialNumber.text = value
             }
+
             AppConstants.URI_BT_MAC -> {
                 mBinder.infoContainer.macAddress.text = value
             }
+
             AppConstants.URI_IMEI -> {
                 mBinder.infoContainer.imeiCode.text = value
             }
+
             AppConstants.URI_WIFI_MAC -> {
                 mBinder.infoContainer.wifiMacAddress.text = value
             }
         }
-    }
-
-    private val processProfileObserver = Observer<Identifier> {
-        if (!it.supported && it.uri == AppConstants.URI_IMEI) {
-            mBinder.infoContainer.imeiCode.text = getString(R.string.imei_not_supported)
-            return@Observer
-        }
-        Log.i(TAG, "Profile with Identifier: ${it.uri} was successfully processed")
-        retrieveOEMInfo(it)
     }
 
     companion object {
