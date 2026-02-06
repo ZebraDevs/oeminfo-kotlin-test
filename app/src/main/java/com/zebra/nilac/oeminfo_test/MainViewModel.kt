@@ -1,17 +1,21 @@
 package com.zebra.nilac.oeminfo_test
 
+import android.app.Application
 import android.content.Context
 import android.telephony.TelephonyManager
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import com.symbol.emdk.EMDKResults
 import com.zebra.nilac.emdkloader.ProfileLoader
 import com.zebra.nilac.emdkloader.interfaces.ProfileLoaderResultCallback
+import com.zebra.nilac.emdkloader.utils.SignatureUtils
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val profilesProcessed = MutableLiveData<Identifier>()
 
@@ -66,11 +70,13 @@ class MainViewModel : ViewModel() {
                                         override fun onProcessed(isProcessed: Boolean) {
                                             if (isProcessed) {
                                                 profilesProcessed.postValue(identifiers[2])
-                                                processProfile(identifiers[3], object : ProcessProfileResult {
-                                                    override fun onProcessed(isProcessed: Boolean) {
-                                                        profilesProcessed.postValue(identifiers[3])
-                                                    }
-                                                })
+                                                processProfile(
+                                                    identifiers[3],
+                                                    object : ProcessProfileResult {
+                                                        override fun onProcessed(isProcessed: Boolean) {
+                                                            profilesProcessed.postValue(identifiers[3])
+                                                        }
+                                                    })
                                             }
                                         }
                                     })
@@ -88,10 +94,10 @@ class MainViewModel : ViewModel() {
         processProfileResult: ProcessProfileResult
     ) {
         Log.i(
-            MainActivity.TAG,
+            TAG,
             "Processing AccessManager Profile with selected Identifier: ${identifier.uri}"
         )
-        //Note. CallerSignature should be changed with the CERT of the signature which you intend to use to compile your application
+
         val profile = """
             <wap-provisioningdoc>
                 <characteristic type="ProfileInfo">
@@ -108,7 +114,7 @@ class MainViewModel : ViewModel() {
                         <parm name="ServiceIdentifier" value="${identifier.uri}" />
                         <parm name="CallerPackageName" value="com.zebra.nilac.oeminfo_test" />
                         <parm name="CallerSignature" 
-                            value="MIIC5DCCAcwCAQEwDQYJKoZIhvcNAQEFBQAwNzEWMBQGA1UEAwwNQW5kcm9pZCBEZWJ1ZzEQMA4GA1UECgwHQW5kcm9pZDELMAkGA1UEBhMCVVMwIBcNMjIwNTEyMDg1NDA1WhgPMjA1MjA1MDQwODU0MDVaMDcxFjAUBgNVBAMMDUFuZHJvaWQgRGVidWcxEDAOBgNVBAoMB0FuZHJvaWQxCzAJBgNVBAYTAlVTMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqFON7xnLjUCBau4ZKgVlgN0jdP9JfcKE8nev7F5eD/OeLZOR/GCVzJrj29MohR2eonVDWM+kCdBkth8WbsMgc9oLIkdhq1OeOH2JjQRV38X4MQfR/ldz/NoVLPj9oyCNEBEvzCe1z9siHKNWpSqcZj6aimqpyHkBH+2mD9PKyt4a6520J+61E1MOJiS39Ch8pNxJsJ5c9/w1Hb2sURYLe33TPOZfhjcqh5BhNn+qVBoUvabcKuVxh+m0+ltaM1nHbFpKMa+foQVsbQB8wmLiB7F+yE2R0d4UmBqErAM/tQOKp0ZLu3L1jySbRLS1Sf+IbT8ymnirwcvMXC/KzQ/lFQIDAQABMA0GCSqGSIb3DQEBBQUAA4IBAQCF+JRAC8kPuAJxIxVOxCLwcXS5FvwNwbgEvh8hEbAJwYYelN6weq9EmZurfSzGmxPkhSiqp6F9biTcHHUOKGR9Yty1uZkoRl1/+VLVzGrvPfdFwGoXXoSBPrx3Lj36RysZw0kwwJMD+5ovTzemsiVjm92YrAxFXO8XhXRVHGmncLRNi36Mzm6VdtnhkIKlALFLYvxHEQpghOw2K1Po5XJqFw5twQsv+snoFrjv+8f8MltoqEuVnUhP/NRAF1kUbt1IhgPzx0m5HXAHfl5S06p97UbIFtmvBNSFQyMMwoTXUvWcIuHPImcCDdFcB1g4j//TlznE8vgkpiCrQV/q2zb8" />
+                            value="${SignatureUtils.getAppSigningCertificate(application.applicationContext)}" />
                     </characteristic>
                 </characteristic>
             </wap-provisioningdoc>"""
